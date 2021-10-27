@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-const schema = new mongoose.Schema({
-  name: {
+let schema = new mongoose.Schema({
+  type: {
     type: String,
-    required: true,
-    trim: true,
+    enum: ["TEXT", "PHONE_NUMBER", "EMAIL_ID", "RADIO_BUTTON", "CHECKBOX"],
   },
 });
 
-const Field = mongoose.model("Field", schema);
+let fieldSchema = new mongoose.Schema({
+  field: schema,
+});
 
-module.exports = Field;
+let Field = mongoose.model("Field", fieldSchema);
+
+module.exports = { Field, schema, fieldSchema };
